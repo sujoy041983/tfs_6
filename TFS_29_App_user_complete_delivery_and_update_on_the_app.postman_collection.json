@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "3ff17112-5942-4552-ae80-fe1943b843e2",
+		"name": "TFS_29_App_user_should_be_able_to_complete_delivery_and_update_on_the_app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "App_user_login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36343d3f-d3a5-4ff7-ae9d-16b46134488c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData= JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"auth_token\", jsonData.auth_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phone_number\": \"19292827386\",\r\n    \"firebase_id\": \"firebase_ididid\",\r\n    \"secret_text\": \"the_super_secret_text\",\r\n    \"phone_number_int\": \"+19292827386\",\r\n    \"iso_code\": \"US\"\r\n}"
+				},
+				"url": {
+					"raw": "167.99.73.130:30287/api/v1/field-force/auth/user-login",
+					"host": [
+						"167",
+						"99",
+						"73",
+						"130"
+					],
+					"port": "30287",
+					"path": [
+						"api",
+						"v1",
+						"field-force",
+						"auth",
+						"user-login"
+					]
+				},
+				"description": "Objective: App user should be able to login in FFM.\r\n\r\nSE: Shiblu Ahmad\r\nPO: Pranto Majumder\r\nQA: Sujoy Barua\r\nReviewer:Duha Chowdhury\r\n\r\nMethod: POST\r\n\r\nTest Data: \r\n\r\n{\r\n    \"phone_number\": \"19292827386\",\r\n    \"firebase_id\": \"firebase_ididid\",\r\n    \"secret_text\": \"the_super_secret_text\",\r\n    \"phone_number_int\": \"+19292827386\",\r\n    \"iso_code\": \"US\"\r\n}\r\nExpected Result:\r\n{\r\n    \"auth_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDY5NTg4MzAsImlhdCI6MTYwNjM1NDAzMCwic3ViIjo0OTYsIm1vZHVsZXMiOltdLCJ1c2VyX3R5cGUiOiJHZW5lcmFsIiwibmFtZSI6InN1am95IEJhcnVhIiwicGhvbmVfbnVtYmVyIjoiMTkyOTI4MjczODYiLCJtZW1iZXJfdHlwZSI6M30.8cTJhcw0UPryvMxoPakFu8bShSaCUhaUxDBt0n5jG1Q\",\r\n    \"message\": \"Successfully logged in.\",\r\n    \"status\": \"success\"\r\n}\r\nActual Result:\r\n{\r\n    \"auth_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDY5NTg4MzAsImlhdCI6MTYwNjM1NDAzMCwic3ViIjo0OTYsIm1vZHVsZXMiOltdLCJ1c2VyX3R5cGUiOiJHZW5lcmFsIiwibmFtZSI6InN1am95IEJhcnVhIiwicGhvbmVfbnVtYmVyIjoiMTkyOTI4MjczODYiLCJtZW1iZXJfdHlwZSI6M30.8cTJhcw0UPryvMxoPakFu8bShSaCUhaUxDBt0n5jG1Q\",\r\n    \"message\": \"Successfully logged in.\",\r\n    \"status\": \"success\"\r\n}\r\n\r\nStatus Code: 200 OK\r\nTest Result: Pass\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "TFS_29_App_user_should_be_able_to_complete_delivery_and_update_on_the_app",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f549614c-b3c5-4498-bcdd-0f3eee72c3da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"delivery_time\" : \"2020-03-13T11:41:24+00:00\",\r\n\"delivery_location_lattitude\":\"84.35\",\r\n\"delivery_location_longitude\": \"56.32\",\r\n\"user_id\" : 496,\r\n\"field_delivery_id\":566\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/api/v1/field-force/delivery/deliveries/user-deliveries",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"field-force",
+						"delivery",
+						"deliveries",
+						"user-deliveries"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
